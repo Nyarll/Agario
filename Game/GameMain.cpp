@@ -21,7 +21,7 @@
 
 
 // íËêîÇÃíËã` ==============================================================
-
+#define DEBUG
 
 
 
@@ -100,6 +100,7 @@ void UpdateGame(void)
 			if (handle != -1)
 			{
 				DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 25), COLOR_WHITE, "O K !");
+				scene = ONLINE_PLAY;
 			}
 			else
 			{
@@ -116,12 +117,20 @@ void UpdateGame(void)
 		{
 			DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 50), COLOR_WHITE, "O K !");
 			GetNetWorkIP(handle, &Ip);
+			scene = ONLINE_PLAY;
 		}
 		else
 		{
 			handle = GetNewAcceptNetWork();
 			PreparationListenNetWork(9850);
 		}
+		break;
+
+	case ONLINE_PLAY:
+#ifdef DEBUG
+		DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 50), COLOR_WHITE, "ONLINE !");
+#endif 
+
 		break;
 
 	case OFFLINE_PLAY:
