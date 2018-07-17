@@ -58,6 +58,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// 初期状態の画面モードの設定
 	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);
 
+	// カーソルを外しても動作するように設定
+	SetAlwaysRunFlag(TRUE);
+	// 多重起動を可能にする設定
+	SetDoubleStartValidFlag(TRUE);
+
 
 	// DXライブラリの初期化処理
 	if (DxLib_Init() == -1)
