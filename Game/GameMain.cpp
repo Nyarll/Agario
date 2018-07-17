@@ -36,6 +36,7 @@ HNET handle;
 HNET new_nethandle;
 
 IPDATA Ip;
+static IPDATA ip;
 
 
 // プロトタイプ宣言 ========================================================
@@ -69,7 +70,6 @@ void InitializeGame(void)
 // ゲームの更新処理
 void UpdateGame(void)
 {
-	static IPDATA ip;
 	static BOOL IP_flag = FALSE;
 
 	switch (scene)
@@ -112,14 +112,14 @@ void UpdateGame(void)
 		// 接続待ち
 		RenderMyIPaddress();
 
-		if (new_nethandle != -1)
+		if (handle != -1)
 		{
 			DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 50), COLOR_WHITE, "O K !");
-			GetNetWorkIP(new_nethandle, &Ip);
+			GetNetWorkIP(handle, &Ip);
 		}
 		else
 		{
-			new_nethandle = GetNewAcceptNetWork();
+			handle = GetNewAcceptNetWork();
 			PreparationListenNetWork(9850);
 		}
 		break;
