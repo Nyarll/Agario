@@ -90,8 +90,8 @@ void UpdateGame(void)
 		else
 		{
 			SetFontSize(25);
-			DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 25), COLOR_WHITE, "Now Loading....");
-			ScreenFlip();
+			//DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 25), COLOR_WHITE, "Now Loading....");
+			//ScreenFlip();
 		}
 
 		if (IP_flag)
