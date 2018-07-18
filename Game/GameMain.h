@@ -39,3 +39,6 @@ void RenderGame(void);
 
 // ゲームの終了処理
 void FinalizeGame(void);
+
+void SendData(void);	// データ送信
+void RecvData(void);	// データ受信

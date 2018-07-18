@@ -21,6 +21,7 @@
 
 
 // 定数の定義 ==============================================================
+
 #define DEBUG
 
 
@@ -37,6 +38,8 @@ HNET new_nethandle;
 
 IPDATA Ip;
 static IPDATA ip;
+
+BOOL host = FALSE;
 
 
 // プロトタイプ宣言 ========================================================
@@ -71,6 +74,7 @@ void InitializeGame(void)
 void UpdateGame(void)
 {
 	static BOOL IP_flag = FALSE;
+	static int cnt = 3;
 
 	switch (scene)
 	{
@@ -86,6 +90,7 @@ void UpdateGame(void)
 		if (!IP_flag)
 		{
 			IP_flag = InputIPAddress(&ip);
+			host = TRUE;
 		}
 		else
 		{
@@ -128,13 +133,31 @@ void UpdateGame(void)
 
 	case ONLINE_PLAY:
 #ifdef DEBUG
+		SetFontSize(25);
 		DrawFormatString((SCREEN_RIGHT - 8 * 25), (SCREEN_BOTTOM - 50), COLOR_WHITE, "ONLINE !");
 #endif 
+		if (host)
+		{
+			UpdatePlayer1();
+		}
+		else
+		{
+			UpdatePlayer2();
+		}
 
+		UpdateItem();
+
+		if (cnt == 0)
+		{
+			cnt = 3;
+			SendData();
+		}
+		RecvData();
+		cnt--;
 		break;
 
 	case OFFLINE_PLAY:
-		UpdatePlayer();
+		UpdatePlayer1();
 		UpdateItem();
 		break;
 	}
@@ -151,8 +174,13 @@ void RenderGame(void)
 		RenderMenu();
 		break;
 
+	case ONLINE_PLAY:
+		DrawPlayer1();
+		DrawPlayer2();
+		DrawItem();
+
 	case OFFLINE_PLAY:
-		DrawPlayer();
+		DrawPlayer1offline();
 		DrawItem();
 		break;
 	}
@@ -167,3 +195,27 @@ void FinalizeGame(void)
 
 
 // 以下オリジナル関数 --------------------------------------------------
+
+void SendData(void)
+{
+	PacketObject* packet_buf = &object_packet;
+	NetWorkSend(handle, packet_buf, sizeof(object_packet));
+}
+void RecvData(void)
+{
+	PacketObject packet_buf;
+	
+	if (GetNetWorkDataLength(handle) >= sizeof(PacketObject))
+	{
+		NetWorkRecv(handle, &packet_buf, sizeof(packet_buf));
+
+		if (host)
+		{
+			player2 = packet_buf.player2;
+		}
+		else
+		{
+			player1 = packet_buf.player1;
+		}
+	}
+}

@@ -13,22 +13,36 @@ typedef struct
 	HNET net_handle;
 
 	BOOL conect;
+
+	int scroll;
 }PlayerObject;
+
+typedef enum
+{
+	PACKET_GAME_START,
+	PACKET_OK
+}PacketType;
 
 typedef struct
 {
-	PlayerObject player;
-	PlayerObject enemy;
-}MoveObject;
+	PlayerObject player1;
+	PlayerObject player2;
+	PacketType type;
+}PacketObject;
 
 void InitPlayer(void);
-void UpdatePlayer(void);
-void DrawPlayer(void);
+void UpdatePlayer1(void);
+void UpdatePlayer2(void);
 
-extern PlayerObject player;
-extern PlayerObject enemy;
+void DrawPlayer1offline(void);
+void DrawPlayer1(void);
+void DrawPlayer2(void);
 
-extern MoveObject set_game_object;
 
-extern int scroll;
+extern PlayerObject player1;
+extern PlayerObject player2;
+
+extern PacketObject object_packet;
+
+//extern int scroll;
 extern Mouse mouse;
