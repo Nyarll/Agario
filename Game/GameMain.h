@@ -42,3 +42,5 @@ void FinalizeGame(void);
 
 void SendData(void);	// データ送信
 void RecvData(void);	// データ受信
+
+void PlayerCollision(void);

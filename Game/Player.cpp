@@ -17,7 +17,7 @@ char key_old[256];
 
 static 	double rad;
 
-void InitPlayer(void)
+void InitPlayer1(void)
 {
 	player1.obj.pos.x = SCREEN_CENTER_X / 2;
 	player1.obj.pos.y = SCREEN_CENTER_Y;
@@ -30,6 +30,15 @@ void InitPlayer(void)
 
 	player1.angle = 0;
 
+	rad = 0;
+
+	SetMouseDispFlag(TRUE);
+
+	player1.scroll = 1;
+	
+}
+void InitPlayer2(void)
+{
 	player2.obj.pos.x = (SCREEN_CENTER_X / 2) * 3;
 	player2.obj.pos.y = SCREEN_CENTER_Y;
 	player2.obj.speed.x = PLAYER_SPEED;
@@ -45,7 +54,6 @@ void InitPlayer(void)
 
 	SetMouseDispFlag(TRUE);
 
-	player1.scroll = 1;
 	player2.scroll = 1;
 }
 void UpdatePlayer1(void)
@@ -179,7 +187,7 @@ void DrawPlayer1offline(void)
 	DrawCircle(player1.obj.pos.x, player1.obj.pos.y, player1.circle.r / player1.scroll, COLOR_RED, TRUE);
 	DrawCircle(mouse.x, mouse.y, 2, COLOR_WHITE, TRUE);
 
-	DrawLine(player1.obj.pos.x, player1.obj.pos.y, mouse.x, mouse.y, COLOR_WHITE);
+	//DrawLine(player1.obj.pos.x, player1.obj.pos.y, mouse.x, mouse.y, COLOR_WHITE);
 
 	DrawFormatString((int)(player1.obj.pos.x - ((player1.circle.r / player1.scroll) / 4)), (int)(player1.obj.pos.y - (player1.circle.r / player1.scroll) / 4), COLOR_BLUE, "%d", player1.circle.r * 4);
 }
@@ -197,7 +205,7 @@ void DrawPlayer2(void)
 	DrawCircle(player2.obj.pos.x, player2.obj.pos.y, player2.circle.r / player2.scroll, COLOR_WHITE, TRUE);
 	//DrawCircle(mouse.x, mouse.y, 2, COLOR_WHITE, TRUE);
 
-	//DrawLine(player1.obj.pos.x, player1.obj.pos.y, mouse.x, mouse.y, COLOR_WHITE);
+	//DrawLine(player2.obj.pos.x, player2.obj.pos.y, mouse.x, mouse.y, COLOR_WHITE);
 
 	DrawFormatString((int)(player2.obj.pos.x - ((player2.circle.r / player2.scroll) / 4)), (int)(player2.obj.pos.y - (player2.circle.r / player2.scroll) / 4), COLOR_BLUE, "%d", player2.circle.r * 4);
 }

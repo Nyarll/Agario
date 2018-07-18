@@ -30,7 +30,8 @@ typedef struct
 	PacketType type;
 }PacketObject;
 
-void InitPlayer(void);
+void InitPlayer1(void);
+void InitPlayer2(void);
 void UpdatePlayer1(void);
 void UpdatePlayer2(void);
 

@@ -22,7 +22,7 @@
 
 // ’è”‚Ì’è‹` ==============================================================
 
-#define DEBUG
+//#define DEBUG
 
 
 
@@ -66,7 +66,8 @@ void InitializeGame(void)
 	SetWindowSizeChangeEnableFlag(TRUE);
 
 	InitTitle();
-	InitPlayer();
+	InitPlayer1();
+	InitPlayer2();
 	InitItem();
 }
 
@@ -74,7 +75,7 @@ void InitializeGame(void)
 void UpdateGame(void)
 {
 	static BOOL IP_flag = FALSE;
-	static int cnt = 3;
+	static int cnt = 2;
 
 	switch (scene)
 	{
@@ -149,10 +150,13 @@ void UpdateGame(void)
 
 		if (cnt == 0)
 		{
-			cnt = 3;
+			cnt = 2;
 			SendData();
 		}
 		RecvData();
+
+		PlayerCollision();
+
 		cnt--;
 		break;
 
@@ -217,6 +221,24 @@ void RecvData(void)
 		else
 		{
 			player1 = packet_buf.player1;
+		}
+	}
+}
+
+void PlayerCollision(void)
+{
+	if (CircleCollision(player1.circle.r, player2.circle.r,
+		player1.obj.pos.x, player2.obj.pos.x, player1.obj.pos.y, player2.obj.pos.y))
+	{
+		if ((player1.circle.r * 4) > ((player2.circle.r * 4) + (player2.circle.r * 2)))
+		{
+			player1.circle.r += player2.circle.r / 4;
+			InitPlayer2();
+		}
+		if ((player2.circle.r * 4) > ((player1.circle.r * 4) + (player1.circle.r * 2)))
+		{
+			player2.circle.r += player1.circle.r / 4;
+			InitPlayer1();
 		}
 	}
 }
