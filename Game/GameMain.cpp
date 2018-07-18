@@ -204,8 +204,9 @@ void SendData(void)
 void RecvData(void)
 {
 	PacketObject packet_buf;
-	
-	if (GetNetWorkDataLength(handle) >= sizeof(PacketObject))
+	int temp = GetNetWorkDataLength(handle);
+
+	if (temp != 0)
 	{
 		NetWorkRecv(handle, &packet_buf, sizeof(packet_buf));
 
