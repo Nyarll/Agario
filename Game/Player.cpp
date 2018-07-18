@@ -194,7 +194,7 @@ void DrawPlayer1(void)
 }
 void DrawPlayer2(void)
 {
-	DrawCircle(player2.obj.pos.x, player2.obj.pos.y, player2.circle.r / player2.scroll, COLOR_RED, TRUE);
+	DrawCircle(player2.obj.pos.x, player2.obj.pos.y, player2.circle.r / player2.scroll, COLOR_WHITE, TRUE);
 	//DrawCircle(mouse.x, mouse.y, 2, COLOR_WHITE, TRUE);
 
 	//DrawLine(player1.obj.pos.x, player1.obj.pos.y, mouse.x, mouse.y, COLOR_WHITE);
